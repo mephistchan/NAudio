@@ -17,6 +17,7 @@ namespace NAudio.Gui
         List<float> samples = new List<float>(1000);
         int maxSamples;
         int insertPos;
+        bool leftToRight = false;
 
         /// <summary>
         /// Constructs a new instance of the WaveFormPainter class
@@ -30,6 +31,14 @@ namespace NAudio.Gui
             OnResize(EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Line drawing from left to right
+        /// </summary>
+        public bool propLeftToRight 
+        {
+            set { leftToRight = value; }
+        }
+        
         /// <summary>
         /// On Resize
         /// </summary>
@@ -80,12 +89,12 @@ namespace NAudio.Gui
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-
+            
             for (int x = 0; x < this.Width; x++)
             {
                 float lineHeight = this.Height * GetSample(x - this.Width + insertPos);
                 float y1 = (this.Height - lineHeight) / 2;
-                pe.Graphics.DrawLine(foregroundPen, x, y1, x, y1 + lineHeight);
+                pe.Graphics.DrawLine(foregroundPen, (!leftToRight? x: this.Width - x), y1, (!leftToRight ? x : this.Width - x), y1 + lineHeight);
             }
         }
 
