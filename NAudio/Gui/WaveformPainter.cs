@@ -50,6 +50,18 @@ namespace NAudio.Gui
         }
 
         /// <summary>
+        /// Clear Sample List
+        /// </summary>
+        public void Clear() 
+        {
+            insertPos = 0;
+            samples.Clear();
+            samples = new List<float>(1000);
+            this.Invalidate();
+
+        }
+        
+        /// <summary>
         /// Add Max Value
         /// </summary>
         /// <param name="maxSample"></param>
